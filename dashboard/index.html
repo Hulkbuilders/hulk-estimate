@@ -1253,7 +1253,7 @@ function buildOutreachTemplates(p) {
   if (priority === 'HOT') {
     pitch = `${volumeLine}If you're stretched on any of them, or need a backup crew when a sub falls through, I'd like to be on your list.`;
   } else {
-    pitch = `${volumeLine}If you ever need a reliable sub on framing, siding, decks, or additions — or a crew when you're booked — I'd like to be on your list.`;
+    pitch = `${volumeLine}If you ever need a reliable sub on framing, siding, decks, additions, or excavation — or a crew when you're booked — I'd like to be on your list.`;
   }
 
   const subject = `${fn}, quick note about your Newton project at ${addr}`;
@@ -1273,7 +1273,7 @@ function buildOutreachTemplates(p) {
 
 Saw your building permit at ${addr} on the Newton records — congrats on getting it through.
 
-I'm Rodrigo Salgado, owner of Hulk Builders in Worcester. MA-licensed GC. We handle framing, siding, decks, and additions — mostly the crew work that other GCs bring us in on when they're stretched.
+I'm Rodrigo Salgado, owner of Hulk Builders in Worcester. MA-licensed GC. We handle framing, siding, decks, additions, and excavation — mostly the crew work that other GCs bring us in on when they're stretched.
 
 ${pitch}
 
@@ -1292,7 +1292,7 @@ Worcester, MA
 Reply "STOP" to opt out.`;
 
   // SMS — 4 linhas máximo. Endereço do permit na 1ª linha = prova de contexto real (não bot)
-  const smsBody = `Hi ${fn} — Rodrigo Salgado from Hulk Builders (MA licensed GC, Worcester). Saw your permit at ${addr}. If you ever need a sub or backup on framing/siding/decks, I'm 30 min out. Details: ${formLinkDisplay} · Reply STOP to opt out.`;
+  const smsBody = `Hi ${fn} — Rodrigo Salgado from Hulk Builders (MA licensed GC, Worcester). Saw your permit at ${addr}. If you ever need a sub or backup on framing/siding/decks/excavation, I'm 30 min out. Details: ${formLinkDisplay} · Reply STOP to opt out.`;
 
   return { subject, emailBody, smsBody, formLink };
 }
