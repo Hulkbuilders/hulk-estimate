@@ -1,0 +1,6 @@
+{
+  "name": "hulk-estimate",
+  "version": "1.0.0",
+  "description": "Hulk Builders — Landing page + tracking API",
+  "engines": { "node": ">=18" }
+}
