@@ -1,0 +1,14 @@
+{
+  "name": "Hulk Builders — Permits Dashboard",
+  "short_name": "Hulk Permits",
+  "description": "Dashboard interno de prospecção Newton MA",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0E1014",
+  "theme_color": "#2E8B47",
+  "orientation": "any",
+  "icons": [
+    { "src": "icon-180.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
