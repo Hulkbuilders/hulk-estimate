@@ -401,14 +401,55 @@ body {
 const $ = (s) => document.querySelector(s);
 const params = new URLSearchParams(location.search);
 const refPermitId = params.get('ref');
-const prefContractor = params.get('contractor');
-const prefAddress = params.get('address');
-const prefPermit = params.get('permit');
 
-// Pre-preenche do outreach
-if (prefContractor) $('#f_name').value = decodeURIComponent(prefContractor);
-if (prefAddress) $('#f_address').value = decodeURIComponent(prefAddress);
-if (prefPermit) $('#f_permit').value = decodeURIComponent(prefPermit);
+// Auto-preenche TODOS os campos que vieram do outreach (permit data)
+const pref = {
+  name:    params.get('contractor'),  // Nome do applicant (do permit)
+  company: params.get('company'),
+  email:   params.get('email'),
+  phone:   params.get('phone'),
+  address: params.get('address'),      // Endereço da obra (do permit)
+  permit:  params.get('permit'),        // Número do permit
+  type:    params.get('type'),          // Project type
+  scope:   params.get('scope'),         // Descrição do trabalho (do permit)
+};
+
+function setIfPresent(id, val) {
+  if (val) $('#' + id).value = decodeURIComponent(val);
+}
+
+setIfPresent('f_name', pref.name);
+setIfPresent('f_company', pref.company);
+setIfPresent('f_email', pref.email);
+setIfPresent('f_phone', pref.phone);
+setIfPresent('f_address', pref.address);
+setIfPresent('f_permit', pref.permit);
+setIfPresent('f_scope', pref.scope);
+
+// Project type: match do dropdown (New Construction, Addition, etc)
+if (pref.type) {
+  const decoded = decodeURIComponent(pref.type);
+  const sel = $('#f_type');
+  for (const opt of sel.options) {
+    if (opt.value.toLowerCase() === decoded.toLowerCase() || opt.text.toLowerCase() === decoded.toLowerCase()) {
+      sel.value = opt.value;
+      break;
+    }
+  }
+  // Se não bateu com nenhum option, seleciona "Other"
+  if (!sel.value) {
+    for (const opt of sel.options) if (opt.value === 'Other') { sel.value = opt.value; break; }
+  }
+}
+
+// Banner sutil no topo mostrando "pré-preenchido do seu permit"
+if (Object.values(pref).some(v => v)) {
+  const banner = document.createElement('div');
+  banner.style.cssText = 'background:#E8F5E9; border-left:4px solid #5A914D; padding:14px 18px; margin:20px auto 0; max-width:720px; border-radius:0 6px 6px 0; font-size:13px; color:#1B5E20;';
+  banner.innerHTML = '✓ <strong>We pre-filled some fields based on your permit</strong> — please review, complete, and submit. All fields are editable.';
+  const wrap = document.getElementById('form-wrap');
+  wrap.parentNode.insertBefore(banner, wrap);
+}
 
 // Budget total
 function money(v) {
