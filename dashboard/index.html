@@ -593,7 +593,12 @@ body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--tex
       </div>
       <div class="filter-row"><span class="filter-label">Dia:</span><div id="filter-days"></div></div>
       <div class="filter-row"><span class="filter-label">Bairro:</span><div id="filter-cities"></div></div>
-      <div class="filter-row"><span class="filter-label">Status:</span><div id="filter-status"></div></div>
+      <div class="filter-row">
+        <span class="filter-label">Status:</span>
+        <div id="filter-status" style="flex:1;"></div>
+        <button class="btn-bulk" id="btn-reset-filters" style="background:rgba(230,81,0,0.15); border-color:var(--orange); color:#FFB47A;">🔄 Limpar filtros</button>
+      </div>
+      <div id="active-filters-warning" style="display:none; background:rgba(230,81,0,0.1); border-left:3px solid var(--orange); padding:8px 12px; font-size:11px; color:#FFB47A; border-radius:0 4px 4px 0; margin-top:8px;"></div>
     </div>
     <div class="cards-grid" id="cards"></div>
   </main>
@@ -899,6 +904,35 @@ function renderFilters() {
   $$('#filter-days .chip').forEach(c => c.onclick = () => { filterDay = c.dataset.day; render(); });
   $$('#filter-cities .chip').forEach(c => c.onclick = () => { filterCity = c.dataset.city; render(); });
   $$('#filter-status .chip').forEach(c => c.onclick = () => { filterStatus = c.dataset.status; render(); });
+
+  // Reset button + warning quando múltiplos filtros ativos
+  const resetBtn = document.getElementById('btn-reset-filters');
+  if (resetBtn) {
+    resetBtn.onclick = () => {
+      filterDay = 'all'; filterCity = 'all'; filterStatus = 'all'; searchTerm = '';
+      const s = document.getElementById('search'); if (s) s.value = '';
+      render();
+      toast('Filtros limpos');
+    };
+  }
+
+  // Warning quando filtro retorna zero E há múltiplos filtros ativos
+  const warn = document.getElementById('active-filters-warning');
+  if (warn) {
+    const shown = getFiltered().length;
+    const activeCount = [filterDay!=='all', filterCity!=='all', filterStatus!=='all', !!searchTerm].filter(Boolean).length;
+    if (shown === 0 && activeCount > 1) {
+      const active = [];
+      if (filterDay!=='all') active.push('Dia');
+      if (filterCity!=='all') active.push('Bairro');
+      if (filterStatus!=='all') active.push('Status');
+      if (searchTerm) active.push('Busca');
+      warn.innerHTML = `⚠️ Nenhum permit bate com <strong>${activeCount} filtros ativos ao mesmo tempo</strong> (${active.join(' + ')}). Clica <strong>🔄 Limpar filtros</strong> pra reset.`;
+      warn.style.display = 'block';
+    } else {
+      warn.style.display = 'none';
+    }
+  }
 }
 
 function renderCards() {
