@@ -47,10 +47,11 @@
 }
 
 /* Ajustes específicos light — sobrepor tags/badges com bg claro pra ter contraste */
-:root[data-theme="light"] .nav-sidebar { background: #FFFFFF; border-right: 1px solid #D0D0D8; }
-:root[data-theme="light"] .nav-item { color: #333333; }
-:root[data-theme="light"] .nav-item:hover { background: #F0F2F5; color: #0A0A0A; }
-:root[data-theme="light"] .nav-item.active { background: #E8F5E9; color: #1B5E20; }
+:root[data-theme="light"] .nav-sidebar { background: #E8F5E9; border-right: 2px solid #A5D6A7; }
+:root[data-theme="light"] .nav-item { color: #2E7D32; background: transparent; }
+:root[data-theme="light"] .nav-item:hover { background: #C8E6C9; color: #1B5E20; }
+:root[data-theme="light"] .nav-item.active { background: #FFFFFF; color: #1B5E20; box-shadow: 0 2px 4px rgba(0,0,0,0.06); }
+:root[data-theme="light"] .nav-logo { background: transparent !important; padding: 0 !important; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
 :root[data-theme="light"] .brand-logo { color: #0A0A0A; }
 :root[data-theme="light"] .stat-num { color: #0A0A0A; }
 :root[data-theme="light"] .card-address { color: #0A0A0A; font-weight: 700; }
@@ -600,7 +601,7 @@ body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--tex
 <div class="app-shell">
 
 <nav class="nav-sidebar">
-  <div class="nav-logo">HB</div>
+  <div class="nav-logo" style="background:transparent; padding:0; overflow:hidden;"><img src="logo-hulk-email.png" alt="Hulk Builders" style="width:44px; height:44px; display:block; border-radius:8px;"></div>
   <button class="nav-item active" data-view="permits">📍
     <span class="nav-tooltip">Permits & Rotas</span>
   </button>
