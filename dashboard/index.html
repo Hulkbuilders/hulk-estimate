@@ -1086,6 +1086,19 @@ function renderSidebar() {
   $('#btn-copy').disabled = !hasSel;
   $('#btn-export').disabled = !hasSel;
   $('#btn-clear').disabled = !hasSel;
+
+  // Aviso claro quando nada selecionado
+  const hint = document.getElementById('sidebar-hint');
+  if (!hasSel && !hint) {
+    const warning = document.createElement('div');
+    warning.id = 'sidebar-hint';
+    warning.style.cssText = 'background:rgba(230,81,0,0.15); border:1px solid var(--orange); border-radius:6px; padding:10px 12px; font-size:11px; color:#FFB47A; margin-bottom:10px; line-height:1.5; text-align:center;';
+    warning.innerHTML = '👆 Marque os checkboxes ☐ no canto superior direito de cada card pra selecionar. Depois esses botões abaixo ficam ativos.';
+    const actionGroup = document.querySelector('.sidebar .action-group');
+    if (actionGroup) actionGroup.parentNode.insertBefore(warning, actionGroup);
+  } else if (hasSel && hint) {
+    hint.remove();
+  }
 }
 
 function renderStats() {
