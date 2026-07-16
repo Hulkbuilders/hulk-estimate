@@ -1291,8 +1291,19 @@ Worcester, MA
 —
 Reply "STOP" to opt out.`;
 
-  // SMS — 4 linhas máximo. Endereço do permit na 1ª linha = prova de contexto real (não bot)
-  const smsBody = `Hi ${fn} — Rodrigo Salgado from Hulk Builders (MA licensed GC, Worcester). Saw your permit at ${addr}. If you ever need a sub or backup on framing/siding/decks/excavation, I'm 30 min out. Details: ${formLinkDisplay} · Reply STOP to opt out.`;
+  // SMS estruturado em 3 blocos separados por linha em branco:
+  //   [1] mensagem pessoal (contexto + oferta)
+  //   [2] link isolado — faz iMessage/WhatsApp gerar card preview com LOGO Hulk (OG tags na landing)
+  //   [3] STOP compliance
+  const smsBody = formLinkDisplay
+    ? `Hi ${fn} — Rodrigo Salgado, Hulk Builders (MA licensed GC in Worcester). Saw your permit at ${addr}. If you ever need a sub or backup crew — framing, siding, decks, additions, excavation — I'm 30 min out.
+
+${formLinkDisplay}
+
+Reply here or text STOP to opt out.`
+    : `Hi ${fn} — Rodrigo Salgado, Hulk Builders (MA licensed GC in Worcester). Saw your permit at ${addr}. If you ever need a sub or backup crew — framing, siding, decks, additions, excavation — I'm 30 min out.
+
+Reply here or call (508) 596-5050. Text STOP to opt out.`;
 
   return { subject, emailBody, smsBody, formLink };
 }
