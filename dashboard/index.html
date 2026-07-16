@@ -1258,15 +1258,15 @@ function buildOutreachTemplates(p) {
 
   const subject = `${fn}, quick note about your Newton project at ${addr}`;
 
-  // URL CURTA (redirect) — evita URL gigante que parece scam.
+  // URL curta (redirect) — evita URL gigante que parece scam.
   // hulkbuilders.github.io/hulk-estimate/r/N → redireciona pra landing com params
   const DEFAULT_BASE = 'hulkbuilders.github.io/hulk-estimate';
   const savedBase = localStorage.getItem('hulk-form-public-url');
   const baseHost = savedBase ? savedBase.replace(/^https?:\/\//, '').replace(/\/$/, '') : DEFAULT_BASE;
-  // Link curto (SEM https:// no meio pra economizar chars no SMS e ficar menos "linky")
+  // SEMPRE com https:// completo — Mail.app, Gmail, iMessage, WhatsApp auto-linkificam APENAS URLs com protocolo explícito.
+  // Sem https:// aparece como texto puro (não clicável). Poucos chars a mais valem a legibilidade.
   const formLink = `https://${baseHost}/r/${p.id}`;
-  // Versão sem protocolo pra exibir compacto (SMS/WhatsApp aceitam sem https)
-  const formLinkDisplay = `${baseHost}/r/${p.id}`;
+  const formLinkDisplay = formLink; // usa o mesmo — sem versão "curta sem protocolo"
 
   // Email body — humano, curto no começo pra provar contexto real
   const emailBody = `Hi ${fn},
