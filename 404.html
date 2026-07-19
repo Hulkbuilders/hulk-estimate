@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8">
+<title>Redirecting…</title>
+<script>
+(function() {
+  const path = location.pathname;
+  const m = path.match(/\/r\/(\d+)/);
+  if (m) {
+    const permitId = m[1];
+    // Redireciona pra landing form com o permit ID como param
+    location.replace('/estimate/?ref=' + permitId);
+  } else {
+    // Fallback: manda pra home
+    location.replace('/estimate/');
+  }
+})();
+</script>
+</head><body>
+<p style="font-family:Arial;text-align:center;padding:40px">Redirecting…</p>
+</body></html>
